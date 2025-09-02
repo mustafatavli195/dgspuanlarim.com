@@ -1,0 +1,90 @@
+﻿@{
+    ViewData["Title"] = "Hakkında | ";
+}
+
+<div class="container mt-5">
+
+    <!-- Başlık ve kısa açıklama -->
+    <div class="text-center mb-5">
+        <h1 class="display-5 fw-bold">DGS Puan Karşılaştırma Sitesi</h1>
+        <p class="lead">2022, 2023 ve 2024 DGS verilerini tek bir tabloda karşılaştırabilir, istediğiniz bölümün, okulun veya puan türünün puan ve kontenjan bilgilerini kolayca görebilirsiniz.</p>
+    </div>
+
+    <!-- Öne çıkan bilgiler -->
+    <div class="row g-4 mb-5">
+        <div class="col-md-4">
+            <div class="card h-100 text-center shadow-sm border-0 feature-card">
+                <div class="card-body">
+                    <i class="bi bi-search display-4 text-primary mb-3"></i>
+                    <h5 class="card-title fw-bold">Gelişmiş Arama & Filtreleme</h5>
+                    <p class="card-text">Program kodu, üniversite veya bölüm adı ile hızlı arama yapabilir, puan türüne göre filtreleme uygulayabilirsiniz.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card h-100 text-center shadow-sm border-0 feature-card">
+                <div class="card-body">
+                    <i class="bi bi-bar-chart-line display-4 text-success mb-3"></i>
+                    <h5 class="card-title fw-bold">Sıralama & Karşılaştırma</h5>
+                    <p class="card-text">Kontenjan, yerleşen ve puan bilgilerini artan/azalan şekilde sıralayabilir ve yıllara göre karşılaştırabilirsiniz.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card h-100 text-center shadow-sm border-0 feature-card">
+                <div class="card-body">
+                    <i class="bi bi-phone display-4 text-warning mb-3"></i>
+                    <h5 class="card-title fw-bold">Mobil & Responsive</h5>
+                    <p class="card-text">Tüm cihazlarla uyumlu modern arayüz sayesinde masaüstü ve mobil cihazlarda sorunsuz kullanım.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Teknolojiler ve veri kaynağı -->
+    <div class="row g-4 mb-5">
+        <div class="col-md-6">
+            <div class="card h-100 shadow-sm border-0 feature-card">
+                <div class="card-body">
+                    <h5 class="card-title fw-bold"><i class="bi bi-code-slash me-2"></i> Teknolojiler</h5>
+                    <p class="card-text">ASP.NET Core MVC, Entity Framework Core (Backend), Bootstrap 5 ve Razor Pages (Frontend) kullanılmıştır.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card h-100 shadow-sm border-0 feature-card">
+                <div class="card-body">
+                    <h5 class="card-title fw-bold"><i class="bi bi-database-fill me-2"></i> Veri Kaynağı</h5>
+                    <p class="card-text">Tüm veriler ÖSYM resmi kaynaklarından alınmıştır. Doğruluğunu kontrol etmek için <a href="https://www.osym.gov.tr/TR,30722/2024.html" target="_blank">ÖSYM sitesini</a> ziyaret edebilirsiniz.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- GitHub & iletişim -->
+    <div class="text-center mt-5">
+        <h4 class="fw-bold mb-3">Proje Açık Kaynak & İletişim</h4>
+        <p class="mb-2">Kaynak kodları GitHub üzerinden erişilebilir:</p>
+        <a href="https://github.com/mustafatavli195/dgspuanlarim.com" target="_blank" class="btn btn-primary btn-lg mb-3">GitHub</a>
+        <p>İletişim: <a href="mailto:tavlioffical@gmail.com" class="link-primary">tavlioffical@gmail.com</a></p>
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+<style>
+    .feature-card {
+        transition: transform 0.3s, box-shadow 0.3s;
+        cursor: pointer;
+    }
+
+        .feature-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 0.8rem 1.5rem rgba(0,0,0,0.25);
+        }
+
+    a.link-primary:hover {
+        text-decoration: underline;
+    }
+</style>

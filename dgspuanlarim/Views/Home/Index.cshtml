@@ -1,0 +1,129 @@
+﻿@model List<dgspuanlarim.Models.DgsPuanlarimModel>
+
+@{
+    int currentPage = ViewBag.CurrentPage ?? 1;
+    int totalPages = ViewBag.TotalPages ?? 1;
+}
+
+@functions {
+    string SortLink(string column, string displayText)
+    {
+        string currentSort = ViewBag.Sort?.ToString() ?? "";
+        string newSort = column + (currentSort == column + "_asc" ? "_desc" : "_asc");
+
+        return $"<a href=\"{Url.Action("Index", new { search = ViewBag.Search, puanTuru = ViewBag.PuanTuru, sort = newSort })}\" class=\"text-white\">" +
+               displayText +
+               (currentSort == column + "_asc" ? " ▲" : currentSort == column + "_desc" ? " ▼" : "") +
+               "</a>";
+    }
+}
+
+<!-- Search ve Puan Türü Filter -->
+<form method="get" class="mb-3 w-100">
+    <!-- Masaüstü: yatay, tüm elemanlar yan yana ve tam genişlik -->
+    <div class="d-none d-md-flex gap-2 align-items-center w-100">
+        <input type="text" name="search" value="@ViewBag.Search" class="form-control" placeholder="Program Kodu, Üniversite veya Bölüm Ara..." style="flex:1;" />
+        <select name="puanTuru" class="form-select" style="width:150px;">
+            <option value="" selected="@(string.IsNullOrEmpty(ViewBag.PuanTuru?.ToString()))">Tüm Puan Türleri</option>
+            <option value="SÖZ" selected="@(ViewBag.PuanTuru?.ToString() == "SÖZ")">SÖZ</option>
+            <option value="EA" selected="@(ViewBag.PuanTuru?.ToString() == "EA")">EA</option>
+            <option value="SAY" selected="@(ViewBag.PuanTuru?.ToString() == "SAY")">SAY</option>
+            <option value="DİL" selected="@(ViewBag.PuanTuru?.ToString() == "DİL")">DİL</option>
+        </select>
+        <button type="submit" class="btn btn-primary flex-shrink-0">Uygula</button>
+        <a href="@Url.Action("Index")" class="btn btn-secondary flex-shrink-0">Temizle</a>
+    </div>
+
+    <!-- Mobil: dikey, input üstte, select altında, butonlar yan yana -->
+    <div class="d-flex d-md-none flex-column gap-2">
+        <input type="text" name="search" value="@ViewBag.Search" class="form-control" placeholder="Program Kodu, Üniversite veya Bölüm Ara..." />
+        <select name="puanTuru" class="form-select">
+            <option value="" selected="@(string.IsNullOrEmpty(ViewBag.PuanTuru?.ToString()))">Tüm Puan Türleri</option>
+            <option value="SÖZ" selected="@(ViewBag.PuanTuru?.ToString() == "SÖZ")">SÖZ</option>
+            <option value="EA" selected="@(ViewBag.PuanTuru?.ToString() == "EA")">EA</option>
+            <option value="SAY" selected="@(ViewBag.PuanTuru?.ToString() == "SAY")">SAY</option>
+            <option value="DİL" selected="@(ViewBag.PuanTuru?.ToString() == "DİL")">DİL</option>
+        </select>
+        <div class="d-flex gap-2">
+            <button type="submit" class="btn btn-primary flex-fill">Uygula</button>
+            <a href="@Url.Action("Index")" class="btn btn-secondary flex-fill">Temizle</a>
+        </div>
+    </div>
+</form>
+<!-- Programlar Tablosu -->
+<div class="table-responsive">
+
+    <table class="table table-bordered table-striped text-center align-middle" style="font-size:0.95rem; width:100%;">
+        <thead class="table-dark">
+            <tr>
+                <th>Program Kodu</th>
+                <th>Üniversite</th>
+                <th>Fakülte</th>
+                <th>Bölüm</th>
+                <th>Puan Türü</th>
+                <th>Yıl</th>
+
+                <th>@Html.Raw(SortLink("kontenjan", "Kontenjan"))</th>
+                <th>@Html.Raw(SortLink("yerlesen", "Yerleşen"))</th>
+                <th>@Html.Raw(SortLink("en_kucuk", "En Küçük Puan"))</th>
+                <th>@Html.Raw(SortLink("en_buyuk", "En Büyük Puan"))</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.program_kodu</td>
+                    <td>@item.universite_adi</td>
+                    <td>@(string.IsNullOrWhiteSpace(item.fakulte_adi) ? "Belirtilmemiş" : item.fakulte_adi)</td>
+                    <td>@item.bolum_adi</td>
+                    <td>@item.puan_turu</td>
+                    <td>2024<br />2023<br />2022</td>
+                    <td>@(item.kontenjan_2024?.ToString() ?? "-")<br />@(item.kontenjan_2023?.ToString() ?? "-")<br />@(item.kontenjan_2022?.ToString() ?? "-")</td>
+                    <td>@(item.yerlesen_2024?.ToString() ?? "-")<br />@(item.yerlesen_2023?.ToString() ?? "-")<br />@(item.yerlesen_2022?.ToString() ?? "-")</td>
+                    <td>@(item.en_kucuk_puan_2024?.ToString("0.000") ?? "-")<br />@(item.en_kucuk_puan_2023?.ToString("0.000") ?? "-")<br />@(item.en_kucuk_puan_2022?.ToString("0.000") ?? "-")</td>
+                    <td>@(item.en_buyuk_puan_2024?.ToString("0.000") ?? "-")<br />@(item.en_buyuk_puan_2023?.ToString("0.000") ?? "-")<br />@(item.en_buyuk_puan_2022?.ToString("0.000") ?? "-")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+
+<!-- Pagination -->
+<nav aria-label="Page navigation">
+    <ul class="pagination justify-content-center">
+        @if (currentPage > 1)
+        {
+            <li class="page-item">
+                <a class="page-link" href="@Url.Action("Index", new { search = ViewBag.Search, puanTuru = ViewBag.PuanTuru, sort = ViewBag.Sort, page = currentPage - 1 })">Önceki</a>
+            </li>
+        }
+
+        @for (int i = 1; i <= totalPages; i++)
+        {
+            if (i == 1 || i == totalPages || (i >= currentPage - 2 && i <= currentPage + 2))
+            {
+                <li class="page-item @(i == currentPage ? "active" : "")">
+                    <a class="page-link" href="@Url.Action("Index", new { search = ViewBag.Search, puanTuru = ViewBag.PuanTuru, sort = ViewBag.Sort, page = i })">@i</a>
+                </li>
+            }
+            else if (i == 2 && currentPage > 4)
+            {
+                <li class="page-item disabled"><span class="page-link">...</span></li>
+            }
+            else if (i == totalPages - 1 && currentPage < totalPages - 3)
+            {
+                <li class="page-item disabled"><span class="page-link">...</span></li>
+            }
+        }
+
+        @if (currentPage < totalPages)
+        {
+            <li class="page-item">
+                <a class="page-link" href="@Url.Action("Index", new { search = ViewBag.Search, puanTuru = ViewBag.PuanTuru, sort = ViewBag.Sort, page = currentPage + 1 })">Sonraki</a>
+            </li>
+        }
+    </ul>
+</nav>
+
