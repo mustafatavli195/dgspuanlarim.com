@@ -1,0 +1,34 @@
+﻿# Visual Studio
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Build results
+bin/
+obj/
+out/
+	
+# Rider
+.idea/
+
+# ASP.NET Core
+wwwroot/uploads/
+*.db
+*.log
+
+# NuGet
+*.nupkg
+packages/
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Python script output (opsiyonel)
+*.pyc
+__pycache__/
